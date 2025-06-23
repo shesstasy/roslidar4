@@ -1,0 +1,125 @@
+<sdf version='1.7'>
+  <world name='default'>
+
+    <!-- Свет и земля -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Модель стены -->
+    <model name='wall'>
+      <pose>0 0 0.5 0 -0 0</pose> <!-- Позиция стены: x=0, y=0, z=0.5 (высота середины стены) -->
+      <static>true</static> <!-- Стена является неподвижной -->
+      <link name='wall_link'>
+        <collision name='wall_collision'>
+          <geometry>
+            <box>
+              <size>2 0.5 1</size> <!-- Размеры стены: 2м (длина), 0.5м (ширина), 1м (высота) -->
+            </box>
+          </geometry>
+        </collision>
+        <visual name='wall_visual'>
+          <geometry>
+            <box>
+              <size>2 0.5 1</size> <!-- Размеры стены: 2м (длина), 0.5м (ширина), 1м (высота) -->
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Остальные элементы вашего мира -->
+    <model name='unit_box'>
+      <pose>1.51295 -0.0042509 0.5 0 -0 0</pose>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+
+    <!-- Состояние мира -->
+    <state world_name='default'>
+      <sim_time>131 534000000</sim_time>
+      <real_time>134 160796702</real_time>
+      <wall_time>1749914361 836273828</wall_time>
+      <iterations>131534</iterations>
+      <model name='unit_box'>
+        <pose>1.51295 -0.004255 0.499986 -1.4e-05 -0 -0</pose>
+        <scale>1 1.99621 1</scale>
+        <link name='link'>
+          <pose>1.51295 -0.004255 0.499986 -1.4e-05 -0 -0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-6e-06 9.8 -0 2.1287 -1.9e-05 0</acceleration>
+          <wrench>-6e-06 9.8 -0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+
+    <!-- Интерфейс GUI -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-3.40167 -1.14028 3.99874 0 0.799643 0.336203</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>
